@@ -19,18 +19,24 @@ export interface OCRData {
     numero_fatura?: string;
     total_documento?: number;
     total_iva?: number;
+    extractedText?: string;
 }
 
 export interface FileResult {
     id: string;
     fileName: string;
     originalName: string;
-    status: ValidationStatus;
+    status: ValidationStatus | 'QR CODE NÃO VISIVEL';
+    ocrStatus: 'SUCCESS' | 'FAILED' | 'NOT_STARTED';
+    qrStatus: 'SUCCESS' | 'FAILED' | 'NOT_FOUND' | 'NOT_STARTED';
     qrData?: QRData;
     ocrData?: OCRData;
     divergences?: string[];
     processedAt: string;
     newName?: string;
+    toleranceUsed?: number;
+    errorMargin?: number; // Configurable margin used for this result
+    isWithinTolerance?: boolean;
 }
 
 export interface DashboardStats {
